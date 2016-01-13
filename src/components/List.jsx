@@ -1,0 +1,125 @@
+import React, { Component, PropTypes } from 'react'
+import AltContainer from 'alt-container'
+import { Badge, Glyphicon } from 'react-bootstrap'
+import { DropTarget } from 'react-dnd'
+import Tasks from './Tasks'
+import TaskStore from '../stores/TaskStore'
+import ListActions from '../actions/ListActions'
+import ItemTypes from '../constants'
+
+const listTarget = {
+    hover(targetProps, monitor) {
+        const sourceId = monitor.getItem().id
+        const listId = targetProps.list.id
+
+        if (!targetProps.list.tasks.length && monitor.canDrop()) {
+            ListActions.attachList({
+                sourceId,
+                listId
+            }) 
+        }
+    },
+
+    drop(targetProps, monitor) {
+        const sourceId = monitor.getItem().id
+        const list = targetProps.list
+        const index = list.tasks.indexOf(sourceId)
+
+        const afterId = list.tasks[index - 1] ?  list.tasks[index - 1] : null
+        const beforeId = list.tasks[index + 1] ?  list.tasks[index + 1] : null
+
+        return {
+            afterId,
+            beforeId,
+            newListId: list.id,
+            defaultState: list.states[0]
+        }
+    },
+
+    canDrop(targetProps, monitor) {
+        // @TODO: look this up through state info on tasks!!!
+        // release can only be 'unstarted' (Backlog) or 'accepted' (Done). Not (Working)
+        if (monitor.getItem().storyType === 'release' && 
+            targetProps.list.name === 'Working') {
+            return false
+        } 
+
+        return true
+
+    }
+}
+
+@DropTarget(ItemTypes.TASK, listTarget, (connect ,monitor) => ({
+    connectDropTarget: connect.dropTarget()
+}))
+class List extends Component {
+    constructor(props) {
+        super(props)
+
+        this.styles = {
+            list: {
+                background: '#505360',
+                minHeight: '80vh'
+            },
+            header: {
+                background: '#2E323E',
+                padding: 10,
+                color: '#858E99',
+            },
+            headerText: {
+                fontSize: 22,
+                fontFamily: 'Raleway, sans-serif'
+            },
+            badge: {
+                marginTop: 5,
+                background: '#858E99',
+                color: '#20232B',
+            },
+            addTask: {
+                margin: '1px 5px',
+				color: '#858E99',
+				cursor: 'pointer',
+				background: '#2E323E',
+				fontSize: 'x-large',
+            },
+            icon: {
+                top: -1,
+                marginRight:10 
+            }
+        }
+
+    }
+
+    static propTypes = {
+        list: PropTypes.object.isRequired,
+        onAddTask: PropTypes.func.isRequired
+    };
+
+    render() {
+        const {list, connectDropTarget, onAddTask, ...props } = this.props
+        return connectDropTarget(
+            <div style={this.styles.list}>
+                <div style={this.styles.header}>
+                    <Glyphicon glyph="list" style={this.styles.icon}/>
+                    <span style={this.styles.headerText}>{list.name}</span>
+
+                    <Badge style={this.styles.badge}
+                        pullRight={true}>{list.tasks.length}</Badge>
+                    <Badge style={this.styles.addTask}
+                        onClick={this.props.onAddTask.bind(this, list)}
+                        title="Add task to list"
+                        pullRight={true}>+</Badge> </div>
+
+                <AltContainer
+                    stores={[TaskStore]}
+                    inject={{
+                        tasks: TaskStore.get(list.tasks) || []
+                    }}
+                    component={Tasks} />
+            </div>
+        )
+    }
+    
+}
+
+export default List
