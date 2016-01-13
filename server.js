@@ -6,8 +6,8 @@ const config = require('./webpack.config.dev')
 const axios = require('axios')
 
 const API_BASE_URL = 'https://www.pivotaltracker.com/services/v5'
-const USER_TOKEN = process.env.USER_TOKEN
-const PROJECT_ID = process.env.PROJECT_ID
+const USER_TOKEN = process.env.USER_TOKEN || exit('Must specify USER_TOKEN env variable')
+const PROJECT_ID = process.env.PROJECT_ID || exit('Must specify PROJECT_ID env variable')
 
 const app = express()
 const compiler = webpack(config)
@@ -17,6 +17,11 @@ const request = axios.create({
     timeout: 2000,
     headers: { 'X-TrackerToken': USER_TOKEN }
 })
+
+function exit(msg) {
+    console.error(msg)
+    process.exit()
+}
 
 app.use(bodyParser.json())
 
