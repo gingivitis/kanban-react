@@ -2,6 +2,8 @@ import alt from '../libs/alt'
 import uuid from 'node-uuid'
 import { decorate, bind } from 'alt-utils/lib/decorators'
 import update from 'react-addons-update'
+import Immutable from 'immutable'
+import { fromJSOrdered, fromJSGreedy } from '../utils/immutableHelpers'
 import ListActions from '../actions/ListActions'
 import TaskActions from '../actions/TaskActions'
 import TaskStore from './TaskStore'
@@ -13,17 +15,17 @@ class ListStore {
             id: uuid.v4(),
             name: 'Backlog',
             states: ['unstarted'],
-            tasks: []
+            tasks: Immutable.List()
         }, {
             id: uuid.v4(),
             name: 'Working',
             states: ['started', 'finished', 'delivered', 'rejected'],
-            tasks: []
+            tasks: Immutable.List()
         }, {
             id: uuid.v4(),
             name: 'Done',
             states: ['accepted'],
-            tasks: []
+            tasks: Immutable.List()
         }]
     }
 
@@ -35,7 +37,8 @@ class ListStore {
         tasks.forEach((task) => {
             for (var i = 0, len = this.lists.length; i < len; i++) {
                 if (this.lists[i].states.indexOf(task.current_state) > -1) {
-                    this.lists[i].tasks.push(task.id)
+                    const list = this.lists[i]
+                    list.tasks = list.tasks.push(task.id)
                     break
                 }
             }
@@ -47,29 +50,37 @@ class ListStore {
         this.waitFor(TaskStore.dispatchToken)
 
         const task = response.data
-        const { id, current_state } = task
 
         const currentList = this.lists.filter((list) => {
-            return list.tasks.indexOf(id) > -1
+            return list.tasks.includes(task.id)
         })[0]
 
-        if (currentList.states.indexOf(current_state) === -1) {
+        if (currentList.states.indexOf(task.current_state) === -1) {
+
             let index = currentList.tasks.findIndex((taskId) => {
-                return taskId === id
+                return taskId === task.id
             })
-            currentList.tasks.splice(index, 1)
+
+            currentList.tasks = currentList.tasks.remove(index)
 
             const targetList = this.lists.filter((list) => {
-                return list.states.indexOf(current_state) > -1
+                return list.states.indexOf(task.current_state) > -1
             })[0]
-            targetList.tasks.unshift(id)
+
+            targetList.tasks = targetList.tasks.unshift(task.id)
         }
     }
 
     @bind(TaskActions.ADD_TASK_SUCCESS)
     addToList(response) {
+        this.waitFor(TaskStore.dispatchToken)
         const task = response.data
-        this.initTasks({data: [task]})
+
+        const targetList = this.lists.filter((list) => {
+            return list.states.indexOf(task.current_state) > -1
+        })[0]
+
+        targetList.tasks = targetList.tasks.push(task.id)
     }
 
     @bind(TaskActions.DELETE_TASK_SUCCESS)
@@ -79,39 +90,38 @@ class ListStore {
         const taskId = +response.data.id
 
         const list = this.lists.filter((list) => {
-            return list.tasks.indexOf(taskId) > -1
+            return list.tasks.includes(taskId)
         })[0]
-
         const index = list.tasks.indexOf(taskId)
-        list.tasks.splice(index, 1)
-    }
 
+        list.tasks = list.tasks.remove(index)
+    }
 
     @bind(ListActions.MOVE_LIST)
     moveList({sourceId, targetId}) {
         const lists = this.lists
 
         const sourceList = lists.filter((list) => {
-            return list.tasks.indexOf(sourceId) > -1
+            return list.tasks.includes(sourceId)
         })[0]
 
         const targetList = lists.filter((list) => {
-            return list.tasks.indexOf(targetId) > -1
+            return list.tasks.includes(targetId)
         })[0]
 
         const sourceIndex = sourceList.tasks.indexOf(sourceId)
         const targetIndex = targetList.tasks.indexOf(targetId)
 
         if (sourceList === targetList) {
-            sourceList.tasks = update(sourceList.tasks, {
+            sourceList.tasks = Immutable.List(update(sourceList.tasks.toJS(), {
                 $splice: [
                     [sourceIndex, 1],
                     [targetIndex, 0, sourceId]
                 ]
-            })
+            }))
         } else {
-            sourceList.tasks.splice(sourceIndex, 1)
-            targetList.tasks.splice(targetIndex, 0, sourceId)
+            sourceList.tasks = sourceList.tasks.delete(sourceIndex)
+            targetList.tasks = targetList.tasks.splice(targetIndex, 0, sourceId)
         }
     }
 
@@ -123,7 +133,7 @@ class ListStore {
         lists.forEach((list) => {
             const taskIndex = list.tasks.indexOf(sourceId)
             if (taskIndex > -1) {
-                list.tasks.splice(taskIndex, 1)
+                list.tasks.delete(taskIndex)
             }
         })
 
@@ -132,7 +142,7 @@ class ListStore {
             return list.id === listId
         })[0]
 
-        targetList.tasks.push(sourceId)
+        targetList.tasks = targetList.tasks.push(sourceId)
     }
 }
 

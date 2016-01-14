@@ -1,11 +1,13 @@
 import alt from '../libs/alt'
 import { decorate, bind } from 'alt-utils/lib/decorators'
+import Immutable from 'immutable'
+import { fromJSOrdered, fromJSGreedy } from '../utils/immutableHelpers'
 import TaskActions from '../actions/TaskActions'
 
 @decorate(alt)
 class TaskStore {
     constructor() {
-        this.tasks = []
+        this.tasks = Immutable.Map()
 
         this.types = [{
             name: 'feature',
@@ -27,66 +29,34 @@ class TaskStore {
     }
 
     get(ids) {
-        return ( ids || [] ).map((id) => this.tasks[this.findTaskIndex(id)])
-    }
-
-    findTaskIndex(id) {
-        return this.tasks.findIndex((task) => task.id === id)
+        return ( ids || [] ).map(id => this.tasks.get(String(id)))
     }
 
     @bind(TaskActions.FETCH_TASKS_SUCCESS)
     fetchTasksSuccess(response) {
-        this.setState({tasks: response.data})
+        const tasks = {}
+        response.data.forEach((task) => {
+            tasks[task.id] = task
+        })
+        this.tasks = fromJSGreedy(tasks)
     }
 
-    @bind(TaskActions.FETCH_TASKS_ERROR)
-    fetchTasksError(err) {
-        alert(err)
-    }
-
-    @bind(TaskActions.UPDATE_TASK_SUCCESS)
+    @bind(TaskActions.ADD_TASK_SUCCESS,
+          TaskActions.UPDATE_TASK_SUCCESS)
     updateTaskSuccess(response) {
-        const tasks = this.tasks
         const task = response.data
-
-        const index = this.findTaskIndex(task.id)
-
-        tasks.splice(index, 1, task)
-        this.setState({ tasks })
-    }
-
-    @bind(TaskActions.UPDATE_TASK_ERROR)
-    updateTaskError(err) {
-        console.log(err)
-    }
-
-    @bind(TaskActions.ADD_TASK_SUCCESS)
-    addTaskSuccess(response) {
-        const tasks = this.tasks
-        const task = response.data
-
-        tasks.push(task)
-        this.setState({ tasks })
-    }
-
-    @bind(TaskActions.ADD_TASK_ERROR)
-    addTaskError(err) {
-        console.log(err)
+        this.tasks = this.tasks.set(String(task.id), fromJSGreedy(task))
     }
 
     @bind(TaskActions.DELETE_TASK_SUCCESS)
     deleteTaskSuccess(response) {
-        const taskId = response.data.id
-        const tasks = this.tasks
-
-        const index = this.findTaskIndex(taskId)
-
-        tasks.splice(index, 1)
-        this.setState({ tasks })
+        const task = response.data
+        this.tasks = this.tasks.remove(task.id)
     }
 
-    @bind(TaskActions.DELETE_TASK_ERROR)
-    deleteTaskError(err) {
+    @bind(TaskActions.ADD_TASK_ERROR, TaskActions.UPDATE_TASK_ERROR,
+          TaskActions.DELETE_TASK_ERROR, TaskActions.FETCH_TASKS_ERROR)
+    logTaskError(err) {
         console.log(err)
     }
 
