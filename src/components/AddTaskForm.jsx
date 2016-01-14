@@ -79,7 +79,7 @@ class AddTaskForm extends Component {
 
         if (params.story_type === 'feature') {
             const project = AppStore.getState().project
-            params.estimate = +project.point_scale.split(',')[0]
+            params.estimate = +project.get('point_scale').split(',')[0]
         }
 
         TaskActions.addTask(params)

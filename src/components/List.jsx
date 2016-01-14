@@ -12,7 +12,7 @@ const listTarget = {
         const sourceId = monitor.getItem().id
         const listId = targetProps.list.id
 
-        if (!targetProps.list.tasks.length && monitor.canDrop()) {
+        if (!targetProps.list.tasks.size && monitor.canDrop()) {
             ListActions.attachList({
                 sourceId,
                 listId
@@ -25,8 +25,13 @@ const listTarget = {
         const list = targetProps.list
         const index = list.tasks.indexOf(sourceId)
 
-        const afterId = list.tasks[index - 1] ?  list.tasks[index - 1] : null
-        const beforeId = list.tasks[index + 1] ?  list.tasks[index + 1] : null
+        const afterId = list.tasks.first() === sourceId 
+            ? null
+            : list.tasks.get(index - 1) 
+
+        const beforeId = list.tasks.last() === sourceId
+            ? null
+            : list.tasks.get(index + 1)  
 
         return {
             afterId,
@@ -113,7 +118,7 @@ class List extends Component {
                     <span style={this.styles.headerText}>{list.name}</span>
 
                     <Badge style={this.styles.badge}
-                        pullRight={true}>{list.tasks.length}</Badge>
+                        pullRight={true}>{list.tasks.size}</Badge>
                     <Badge style={this.styles.addTask}
                         onClick={this.props.onAddTask.bind(this, list)}
                         title="Add task to list"

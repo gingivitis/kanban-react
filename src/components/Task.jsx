@@ -15,13 +15,13 @@ const taskSource = {
         const lists = ListStore.getState().lists
 
         const currentList = lists.filter((list) => {
-            return list.tasks.indexOf(props.task.id) > -1
+            return list.tasks.includes(props.task.get('id'))
         })[0]
 
         return {
-            id: props.task.id,
+            id: props.task.get('id'),
             listId: currentList.id,
-            storyType: props.task.story_type
+            storyType: props.task.get('story_type')
         }
     },
 
@@ -41,12 +41,12 @@ const taskSource = {
             updateParams.current_state = defaultState
 
             // need to handle estimate
-            if (storyType === 'feature' && task.estimate === undefined) {
+            if (storyType === 'feature' && task.get('estimate') === undefined) {
                 const project = AppStore.getState().project
-                updateParams.estimate = +project.point_scale.split(',')[0]
+                updateParams.estimate = +project.get('point_scale').split(',')[0]
             }
         } else {
-            updateParams.current_state = task.current_state
+            updateParams.current_state = task.get('current_state')
         } 
 
         // accepted wont allow position
@@ -61,7 +61,7 @@ const taskSource = {
 
 const taskTarget = {
     hover(targetProps, monitor) {
-        const targetId = targetProps.task.id
+        const targetId = targetProps.task.get('id')
         const sourceId = monitor.getItem().id
 
         if (sourceId !== targetId && monitor.canDrop()) {
@@ -93,8 +93,8 @@ class Task extends Component {
         this.types = TaskStore.getState().types
 
         this.changeState = this.changeState.bind(this)
-        this.editTask = this.editTask.bind(this)
-        this.deleteTask = this.deleteTask.bind(this, props.task.id)
+        this.editTask = this.editTask.bind(this, this.props.task.get('id'))
+        this.deleteTask = this.deleteTask.bind(this, props.task.get('id'))
     }
 
     static propTypes = {
@@ -129,7 +129,7 @@ class Task extends Component {
                 padding: 10,
                 borderStyle: 'solid',
                 borderWidth: '0 0 0 10px',
-                borderColor: this.states[task.current_state]
+                borderColor: this.states[task.get('current_state')]
             },
             delete: {
                 float: 'right',
@@ -143,22 +143,22 @@ class Task extends Component {
         }
 
         const states = this.types.filter((type) => {
-            return type.name === task.story_type
+            return type.name === task.get('story_type')
         })[0].states
 
         return connectDropTarget(connectDragSource(
             <div style={this.styles.task} {...props}>
-                <DropdownButton id={task.id} title={task.current_state}
+                <DropdownButton id={task.get('id')} title={task.get('current_state')}
                     onSelect={this.changeState} bsSize="xsmall"
                     style={this.styles.state}>
                     {states.map(this.renderMenuItem, this)}
                 </DropdownButton>
-                <span style={this.styles.type}>{task.story_type}</span>
+                <span style={this.styles.type}>{task.get('story_type')}</span>
 
-                <Editable style={this.styles.name} value={task.name} type="textarea" onEdit={this.editTask}/>
+                <Editable style={this.styles.name} value={task.get('name')} type="textarea" onEdit={this.editTask}/>
 
                 <div style={this.styles.footer}>
-                    {task.labels.map(this.renderLabel, this)}
+                    {task.get('labels').map(this.renderLabel, this)}
                     <Glyphicon glyph="trash" style={this.styles.delete} onClick={this.deleteTask} title="Delete task"/>
                 </div>
             </div>
@@ -177,19 +177,17 @@ class Task extends Component {
         const task = this.props.task
         const updateParams = {}
 
-        if (task.story_type === 'feature' && task.estimate === undefined) {
+        if (task.get('story_type') === 'feature' && task.get('estimate') === undefined) {
             const project = AppStore.getState().project
-            updateParams.estimate = +project.point_scale.split(',')[0]
+            updateParams.estimate = +project.get('point_scale').split(',')[0]
         }
 
         updateParams.current_state = newState
 
-        TaskActions.updateTask(task.id, updateParams)
+        TaskActions.updateTask(task.get('id'), updateParams)
     }
 
-    editTask(name) {
-        const {id} = this.props.task
-
+    editTask(id, name) {
         TaskActions.updateTask(id, { name })
     }
 

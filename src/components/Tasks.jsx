@@ -16,7 +16,7 @@ class Tasks extends Component {
     }
 
     static propTypes = {
-        tasks: PropTypes.arrayOf(PropTypes.object)
+        tasks: PropTypes.object
     };
 
     render() {
@@ -31,7 +31,7 @@ class Tasks extends Component {
 
     renderTask(task) {
         return (
-            <Task key={task.id} id={task.id} task={task} />
+            <Task key={task.get('id')} id={task.get('id')} task={task} />
         )
     }
 

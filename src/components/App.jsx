@@ -72,7 +72,7 @@ class App extends Component {
                     <Navbar inverse fixedTop fluid style={this.styles.navbar}>
                         <Navbar.Header>
                             <Navbar.Brand>
-                                <Editable value={this.state.project.name}
+                                <Editable value={this.state.project.get('name')}
                                     onEdit={this.editProjectName}
                                     style={this.styles.name}
                                     type="text" />
