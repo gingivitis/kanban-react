@@ -37,14 +37,23 @@ const listTarget = {
     },
 
     canDrop(targetProps, monitor) {
-        // @TODO: look this up through state info on tasks!!!
-        // release can only be 'unstarted' (Backlog) or 'accepted' (Done). Not (Working)
-        if (monitor.getItem().storyType === 'release' && 
-            targetProps.list.name === 'Working') {
-            return false
-        } 
+        const listStates = targetProps.list.states
 
-        return true
+        const types = TaskStore.getState().types
+
+        const typeStates = types.filter((type) => {
+            return type.name === monitor.getItem().storyType
+        })[0].states
+
+        const intersection = listStates.filter((state) => { 
+            return typeStates.indexOf(state) > -1 
+        })
+
+        if (intersection.length > 0) {
+            return true
+        }
+
+        return false
 
     }
 }
@@ -77,10 +86,10 @@ class List extends Component {
             },
             addTask: {
                 margin: '1px 5px',
-				color: '#858E99',
-				cursor: 'pointer',
-				background: '#2E323E',
-				fontSize: 'x-large',
+                color: '#858E99',
+                cursor: 'pointer',
+                background: '#2E323E',
+                fontSize: 'x-large',
             },
             icon: {
                 top: -1,
@@ -113,7 +122,7 @@ class List extends Component {
                 <AltContainer
                     stores={[TaskStore]}
                     inject={{
-                        tasks: TaskStore.get(list.tasks) || []
+                        tasks: TaskStore.get(list.tasks) || [],
                     }}
                     component={Tasks} />
             </div>

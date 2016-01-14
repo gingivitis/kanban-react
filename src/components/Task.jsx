@@ -6,6 +6,7 @@ import TaskActions from '../actions/TaskActions'
 import ListActions from '../actions/ListActions'
 import AppStore from '../stores/AppStore'
 import ListStore from '../stores/ListStore'
+import TaskStore from '../stores/TaskStore'
 import Editable from '../components/Editable'
 import ItemTypes from '../constants'
 
@@ -89,6 +90,8 @@ class Task extends Component {
             accepted: '#7EC871'
         }
 
+        this.types = TaskStore.getState().types
+
         this.changeState = this.changeState.bind(this)
         this.editTask = this.editTask.bind(this)
         this.deleteTask = this.deleteTask.bind(this, props.task.id)
@@ -139,7 +142,9 @@ class Task extends Component {
             }
         }
 
-        const states = this.allowedStates(task.story_type)
+        const states = this.types.filter((type) => {
+            return type.name === task.story_type
+        })[0].states
 
         return connectDropTarget(connectDragSource(
             <div style={this.styles.task} {...props}>
@@ -158,19 +163,6 @@ class Task extends Component {
                 </div>
             </div>
         ))
-    }
-
-    allowedStates(storyType) {
-        switch (storyType) {
-            case 'release':
-                return ['unstarted', 'accepted'] 
-            
-            case 'chore':
-                return ['unstarted', 'started', 'accepted'] 
-            
-            default:
-                return Object.keys(this.states)
-        }
     }
 
     renderLabel(label) {
