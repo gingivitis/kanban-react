@@ -166,7 +166,7 @@ class Task extends Component {
     }
 
     renderLabel(label) {
-        return <Label key={label.id} style={this.styles.label}>{label.name}</Label>
+        return <Label key={label.get('id')} style={this.styles.label}>{label.get('name')}</Label>
     }
 
     renderMenuItem(state, index) {

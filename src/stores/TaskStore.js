@@ -1,7 +1,7 @@
 import alt from '../libs/alt'
 import { decorate, bind } from 'alt-utils/lib/decorators'
 import Immutable from 'immutable'
-import { fromJSOrdered, fromJSGreedy } from '../utils/immutableHelpers'
+import { fromJSOrdered, fromJSGreedy } from '../utils/ImmutableHelpers'
 import TaskActions from '../actions/TaskActions'
 
 @decorate(alt)
@@ -36,9 +36,9 @@ class TaskStore {
     fetchTasksSuccess(response) {
         const tasks = {}
         response.data.forEach((task) => {
-            tasks[task.id] = task
+            tasks[task.id] = fromJSGreedy(task)
         })
-        this.tasks = fromJSGreedy(tasks)
+        this.tasks = Immutable.Map(tasks)
     }
 
     @bind(TaskActions.ADD_TASK_SUCCESS,
