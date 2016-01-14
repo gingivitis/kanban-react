@@ -36,9 +36,9 @@ class TaskStore {
     fetchTasksSuccess(response) {
         const tasks = {}
         response.data.forEach((task) => {
-            tasks[task.id] = fromJSGreedy(task)
+            tasks[task.id] = task
         })
-        this.tasks = Immutable.Map(tasks)
+        this.tasks = fromJSGreedy(tasks)
     }
 
     @bind(TaskActions.ADD_TASK_SUCCESS,

@@ -14,8 +14,6 @@ class AddTaskForm extends Component {
             storyType: ''
         }
 
-        this.lists = ListStore.getState().lists
-
         this.types = TaskStore.getState().types
 
         this.styles = {
@@ -71,7 +69,6 @@ class AddTaskForm extends Component {
     }
 
     handleValidSubmit(params) {
-        // features need estimate!
         params.kind = "story"
 
         params.current_state = params.current_state || params.current_state_hidden
@@ -172,13 +169,10 @@ class AddTaskForm extends Component {
 
     allowedStoryTypes() {
         const listId = this.props.addList.id
-        const lists = this.lists
         const types = this.types
 
         // get the states that this list allows
-        const states = lists.filter((list) => {
-            return list.id === listId
-        })[0].states
+        const states = this.props.addList.states
 
         const allowedTypes = new Set()
         states.forEach((state) => {
@@ -197,7 +191,6 @@ class AddTaskForm extends Component {
         const listId = this.props.addList.id
         const storyType = this.state.storyType
         const types = this.types
-        const lists = this.lists
 
         // get the states that this type allows
         const typeStates = types.filter((type) => {
@@ -205,9 +198,7 @@ class AddTaskForm extends Component {
         })[0].states
 
         // get the states that this list allows
-        const listStates = lists.filter((list) => {
-            return list.id === listId
-        })[0].states
+        const listStates = this.props.addList.states
 
         const intersection = new Set(listStates.filter((state) => { 
             return typeStates.indexOf(state) > -1 

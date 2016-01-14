@@ -61,10 +61,6 @@ class App extends Component {
         AppActions.editProject({ name })
     }
 
-    addTask() {
-        alert('add task!')
-    }
-
     render() {
         return (
             <Grid fluid={true}>
