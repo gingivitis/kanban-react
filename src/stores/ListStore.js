@@ -56,7 +56,7 @@ class ListStore {
         })[0]
 
         if (currentList.states.indexOf(task.current_state) === -1) {
-
+            console.log("value")
             let index = currentList.tasks.findIndex((taskId) => {
                 return taskId === task.id
             })
@@ -120,7 +120,7 @@ class ListStore {
                 ]
             }))
         } else {
-            sourceList.tasks = sourceList.tasks.delete(sourceIndex)
+            sourceList.tasks = sourceList.tasks.remove(sourceIndex)
             targetList.tasks = targetList.tasks.splice(targetIndex, 0, sourceId)
         }
     }
@@ -133,7 +133,7 @@ class ListStore {
         lists.forEach((list) => {
             const taskIndex = list.tasks.indexOf(sourceId)
             if (taskIndex > -1) {
-                list.tasks.delete(taskIndex)
+                list.tasks = list.tasks.delete(taskIndex)
             }
         })
 
