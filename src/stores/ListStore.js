@@ -45,35 +45,36 @@ class ListStore {
         })
     }
 
-    @bind(TaskActions.UPDATE_TASK_SUCCESS)
-    updateList(response) {
-        this.waitFor(TaskStore.dispatchToken)
-
-        const task = response.data
-
+    @bind(TaskActions.UPDATE_TASK)
+    updateList({id, params}) {
         const currentList = this.lists.filter((list) => {
-            return list.tasks.includes(task.id)
+            return list.tasks.includes(id)
         })[0]
 
-        if (currentList.states.indexOf(task.current_state) === -1) {
-            console.log("value")
+        if (params.current_state &&
+            currentList.states.indexOf(params.current_state) === -1) {
             let index = currentList.tasks.findIndex((taskId) => {
-                return taskId === task.id
+                return taskId === id
             })
 
             currentList.tasks = currentList.tasks.remove(index)
 
             const targetList = this.lists.filter((list) => {
-                return list.states.indexOf(task.current_state) > -1
+                return list.states.indexOf(params.current_state) > -1
             })[0]
 
-            targetList.tasks = targetList.tasks.unshift(task.id)
+            targetList.tasks = targetList.tasks.unshift(id)
         }
+    }
+
+    @bind(TaskActions.UPDATE_TASK_SUCCESS)
+    updateTaskSuccess(response) {
     }
 
     @bind(TaskActions.ADD_TASK_SUCCESS)
     addToList(response) {
         this.waitFor(TaskStore.dispatchToken)
+
         const task = response.data
 
         const targetList = this.lists.filter((list) => {
@@ -83,16 +84,13 @@ class ListStore {
         targetList.tasks = targetList.tasks.push(task.id)
     }
 
-    @bind(TaskActions.DELETE_TASK_SUCCESS)
-    deleteFromList(response) {
-        this.waitFor(TaskStore.dispatchToken)
-
-        const taskId = +response.data.id
-
+    @bind(TaskActions.DELETE_TASK)
+    deleteFromList(id) {
         const list = this.lists.filter((list) => {
-            return list.tasks.includes(taskId)
+            return list.tasks.includes(id)
         })[0]
-        const index = list.tasks.indexOf(taskId)
+
+        const index = list.tasks.indexOf(id)
 
         list.tasks = list.tasks.remove(index)
     }

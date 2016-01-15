@@ -56,9 +56,9 @@ const listTarget = {
 
         if (intersection.length > 0) {
             return true
+        } else {
+            return false
         }
-
-        return false
 
     }
 }

@@ -30,6 +30,10 @@ const taskSource = {
     },
 
     endDrag(props, monitor) {
+        if (!monitor.didDrop()) {
+            return
+        }
+
         const task = props.task
         const { id, listId, storyType } = monitor.getItem()
 
@@ -68,6 +72,29 @@ const taskTarget = {
             ListActions.moveList({sourceId, targetId})
         }
     },
+
+    canDrop(targetProps, monitor) {
+        const targetId = targetProps.id
+        const lists = ListStore.getState().lists
+        const types = TaskStore.getState().types // make static method
+ 
+        const listStates = lists.filter((list) => {
+            return list.tasks.includes(targetId)
+        })[0].states
+
+        const typeStates = types.filter((type) => {
+            return type.name === monitor.getItem().storyType
+        })[0].states
+
+        const intersection = listStates.filter((state) => {
+            return typeStates.indexOf(state) > -1
+        })
+        
+        if (intersection.length > 0) {
+            return true
+        }
+        return false
+    }
 }
 
 @DragSource(ItemTypes.TASK, taskSource, (connect, monitor) => ({
@@ -93,8 +120,8 @@ class Task extends Component {
         this.types = TaskStore.getState().types
 
         this.changeState = this.changeState.bind(this)
-        this.editTask = this.editTask.bind(this, this.props.task.get('id'))
-        this.deleteTask = this.deleteTask.bind(this, props.task.get('id'))
+        this.editTask = this.editTask.bind(this, props.id)
+        this.deleteTask = this.deleteTask.bind(this, props.id)
     }
 
     static propTypes = {

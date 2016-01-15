@@ -3,3 +3,9 @@
 body {
     background: #3E4048;
 }
+
+.modal-content,
+.form-control,
+.btn {
+    border-radius: 0;
+}

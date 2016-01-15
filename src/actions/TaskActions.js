@@ -19,7 +19,7 @@ class TaskActions {
 
     updateTask(id, params) {
         return (dispatch) => {
-            // dispatch(id) //-> TaskStore#updateTask
+            dispatch({id, params}) //-> TaskStore#updateTask
             KanBanWebAPI.updateTask(id, params)
                 .then(this.updateTaskSuccess.bind(this))
                 .catch(this.updateTaskError.bind(this))
@@ -35,7 +35,8 @@ class TaskActions {
     }
 
     deleteTask(id) {
-        return () => {
+        return (dispatch) => {
+            dispatch(id)
             KanBanWebAPI.deleteTask(id)
                 .then(this.deleteTaskSuccess.bind(this))
                 .catch(this.deleteTaskError.bind(this))

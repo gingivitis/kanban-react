@@ -41,8 +41,16 @@ class TaskStore {
         this.tasks = fromJSGreedy(tasks)
     }
 
-    @bind(TaskActions.ADD_TASK_SUCCESS,
-          TaskActions.UPDATE_TASK_SUCCESS)
+    @bind(TaskActions.UPDATE_TASK)
+    updateTask({id, params}) {
+        let task = this.tasks.get(String(id))
+        task = task.merge(params)
+
+        this.tasks = this.tasks.set(String(id), task)
+    }
+
+    @bind(TaskActions.ADD_TASK_SUCCESS)
+    @bind(TaskActions.UPDATE_TASK_SUCCESS)
     updateTaskSuccess(response) {
         const task = response.data
         this.tasks = this.tasks.set(String(task.id), fromJSGreedy(task))
@@ -51,7 +59,7 @@ class TaskStore {
     @bind(TaskActions.DELETE_TASK_SUCCESS)
     deleteTaskSuccess(response) {
         const task = response.data
-        this.tasks = this.tasks.remove(task.id)
+        this.tasks = this.tasks.remove(String(task.id))
     }
 
     @bind(TaskActions.ADD_TASK_ERROR, TaskActions.UPDATE_TASK_ERROR,
