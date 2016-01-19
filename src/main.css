@@ -2,6 +2,7 @@
 
 body {
     background: #3E4048;
+    min-width: 800px;
 }
 
 .modal-content,

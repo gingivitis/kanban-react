@@ -63,7 +63,7 @@ class ListStore {
                 return list.states.indexOf(params.current_state) > -1
             })[0]
 
-            targetList.tasks = targetList.tasks.unshift(id)
+            targetList.tasks = targetList.tasks.push(id)
         }
     }
 

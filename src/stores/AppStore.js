@@ -7,7 +7,6 @@ import Immutable from 'immutable'
 class AppStore {
     constructor() {
         this.project = Immutable.Map({})
-        this.showAddTask = false
 
         // (lifecycleMethod: string, handler: function): undefined on: This
         // method can be used to listen to Lifecycle events. Normally would be
