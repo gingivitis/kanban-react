@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/List.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/components/</a> List.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.64% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>48/67</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>6/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20.83% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/24</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component, PropTypes } from 'react'
+import AltContainer from 'alt-container'
+import { Badge, Glyphicon } from 'react-bootstrap'
+import { DropTarget } from 'react-dnd'
+import Tasks from './Tasks'
+import TaskStore from '../stores/TaskStore'
+import ListActions from '../actions/ListActions'
+import ItemTypes from '../constants'
+&nbsp;
+const listTarget = {
+    hover<span class="fstat-no" title="function not covered" >(targetProps, monitor) {</span>
+<span class="cstat-no" title="statement not covered" >        const sourceId = monitor.getItem().id</span>
+<span class="cstat-no" title="statement not covered" >        const listId = targetProps.list.id</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (!targetProps.list.tasks.size &amp;&amp; monitor.canDrop()) {</span>
+<span class="cstat-no" title="statement not covered" >            ListActions.attachList({</span>
+                sourceId,
+                listId
+            }) 
+        }
+    },
+&nbsp;
+    drop<span class="fstat-no" title="function not covered" >(targetProps, monitor) {</span>
+<span class="cstat-no" title="statement not covered" >        const sourceId = monitor.getItem().id</span>
+<span class="cstat-no" title="statement not covered" >        const list = targetProps.list</span>
+<span class="cstat-no" title="statement not covered" >        const index = list.tasks.indexOf(sourceId)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const afterId = list.tasks.first() === sourceId </span>
+            ? null
+            : list.tasks.get(index - 1) 
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const beforeId = list.tasks.last() === sourceId</span>
+            ? null
+            : list.tasks.get(index + 1)  
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            afterId,
+            beforeId,
+            newListId: list.id,
+            defaultState: list.states[0]
+        }
+    },
+&nbsp;
+    canDrop<span class="fstat-no" title="function not covered" >(targetProps, monitor) {</span>
+<span class="cstat-no" title="statement not covered" >        const listStates = targetProps.list.states</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const types = TaskStore.getState().types</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const typeStates = types.filter(<span class="fstat-no" title="function not covered" >(type) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            return type.name === monitor.getItem().storyType</span>
+        })[0].states
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const intersection = listStates.filter(<span class="fstat-no" title="function not covered" >(state) =&gt; { </span></span>
+<span class="cstat-no" title="statement not covered" >            return typeStates.indexOf(state) &gt; -1 </span>
+        })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (intersection.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >            return true</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            return false</span>
+        }
+&nbsp;
+    }
+}
+&nbsp;
+@DropTarget(ItemTypes.TASK, listTarget, (connect ,monitor) =&gt; ({
+    connectDropTarget: connect.dropTarget()
+}))
+class List extends Component {
+    constructor(props) {
+        super(props)
+&nbsp;
+        this.styles = {
+            list: {
+                background: '#505360',
+                minHeight: '80vh',
+                minWidth: 250
+            },
+            header: {
+                background: '#2E323E',
+                padding: 10,
+                color: '#858E99',
+            },
+            headerText: {
+                fontSize: 22,
+                fontFamily: 'Raleway, sans-serif'
+            },
+            badge: {
+                marginTop: 5,
+                background: '#858E99',
+                color: '#20232B',
+            },
+            addTask: {
+                margin: '1px 5px',
+                color: '#858E99',
+                cursor: 'pointer',
+                background: '#2E323E',
+                fontSize: 'x-large',
+            },
+            icon: {
+                top: -1,
+                marginRight:10 
+            }
+        }
+&nbsp;
+    }
+&nbsp;
+    static propTypes = {
+        list: PropTypes.object.isRequired,
+        onAddTask: PropTypes.func.isRequired
+    }<span class="branch-1 cbranch-no" title="branch not covered" >;</span>
+&nbsp;
+    render() {
+        const {list, connectDropTarget, onAddTask, ...props } = this.props
+        return connectDropTarget(
+            &lt;div style={this.styles.list}&gt;
+                &lt;div style={this.styles.header}&gt;
+                    &lt;Glyphicon glyph="list" style={this.styles.icon}/&gt;
+                    &lt;span className="list-header" style={this.styles.headerText}&gt;{list.name}&lt;/span&gt;
+&nbsp;
+                    &lt;Badge style={this.styles.badge}
+                        className="task-count"
+                        pullRight={true}&gt;{list.tasks.size}&lt;/Badge&gt;
+                    &lt;Badge style={this.styles.addTask}
+                        className="add-task"
+                        onClick={onAddTask.bind(this, list)}
+                        title="Add task to list"
+                        pullRight={true}&gt;+&lt;/Badge&gt; &lt;/div&gt;
+&nbsp;
+                &lt;AltContainer
+                    stores={[TaskStore]}
+                    inject={{
+                        tasks: TaskStore.get(list.tasks) || <span class="branch-1 cbranch-no" title="branch not covered" >[],</span>
+                    }}
+                    component={Tasks} /&gt;
+            &lt;/div&gt;
+        )
+    }
+    
+}
+&nbsp;
+export default List
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jan 18 2016 21:36:50 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

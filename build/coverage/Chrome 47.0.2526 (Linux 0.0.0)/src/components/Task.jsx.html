@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/Task.jsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/components/</a> Task.jsx
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.03% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>75/119</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">18.75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>6/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">52.63% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">24.53% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>13/53</span>
+      </div>
+      <div class='fl pad1y'>
+        <span class="strong">9 statements, 1 function</span>
+        <span class="quiet">Ignored</span>  &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">205×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">205×</span>
+<span class="cline-any cline-yes">820×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">205×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1223×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component, PropTypes } from 'react'
+import { Glyphicon, Label, DropdownButton, MenuItem } from 'react-bootstrap'
+import { DragSource, DropTarget } from 'react-dnd'
+&nbsp;
+import TaskActions from '../actions/TaskActions'
+import ListActions from '../actions/ListActions'
+import AppStore from '../stores/AppStore'
+import ListStore from '../stores/ListStore'
+import TaskStore from '../stores/TaskStore'
+import Editable from '../components/Editable'
+import ItemTypes from '../constants'
+&nbsp;
+const taskSource = {
+    beginDrag<span class="fstat-no" title="function not covered" >(props, monitor) {</span>
+<span class="cstat-no" title="statement not covered" >        const lists = ListStore.getState().lists</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const currentList = lists.filter(<span class="fstat-no" title="function not covered" >(list) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            return list.tasks.includes(props.task.get('id'))</span>
+        })[0]
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            id: props.task.get('id'),
+            listId: currentList.id,
+            storyType: props.task.get('story_type')
+        }
+    },
+&nbsp;
+    isDragging<span class="fstat-no" title="function not covered" >(props, monitor) {</span>
+<span class="cstat-no" title="statement not covered" >        return props.id === monitor.getItem().id</span>
+    },
+&nbsp;
+    endDrag<span class="fstat-no" title="function not covered" >(props, monitor) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!monitor.didDrop()) {</span>
+<span class="cstat-no" title="statement not covered" >            return</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const task = props.task</span>
+        const { id, listId, storyType } = monitor.getItem()
+&nbsp;
+        const {beforeId, afterId, newListId, defaultState} = monitor.getDropResult()
+<span class="cstat-no" title="statement not covered" >        const updateParams = {}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (newListId !== listId) {</span>
+            // moving to new list give default state
+<span class="cstat-no" title="statement not covered" >            updateParams.current_state = defaultState<span class="cstat-no" title="statement not covered" ></span></span>
+&nbsp;
+            // need to handle estimate
+            if (storyType === 'feature' &amp;&amp; task.get('estimate') === undefined) {
+<span class="cstat-no" title="statement not covered" >                const project = AppStore.getState().project</span>
+<span class="cstat-no" title="statement not covered" >                updateParams.estimate = +project.get('point_scale').split(',')[0]</span>
+            }
+        } else {
+<span class="cstat-no" title="statement not covered" >            updateParams.current_state = task.get('current_state')</span>
+        } <span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+        // accepted wont allow position
+        if (updateParams.current_state !== 'accepted') {
+<span class="cstat-no" title="statement not covered" >            if (beforeId) <span class="cstat-no" title="statement not covered" >updateParams.before_id = beforeId</span></span>
+<span class="cstat-no" title="statement not covered" >            if (afterId) <span class="cstat-no" title="statement not covered" >updateParams.after_id = afterId</span></span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        TaskActions.updateTask(id, updateParams)</span>
+    }
+}
+&nbsp;
+const taskTarget = {
+    hover<span class="fstat-no" title="function not covered" >(targetProps, monitor) {</span>
+<span class="cstat-no" title="statement not covered" >        const targetId = targetProps.task.get('id')</span>
+<span class="cstat-no" title="statement not covered" >        const sourceId = monitor.getItem().id</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (sourceId !== targetId &amp;&amp; monitor.canDrop()) {</span>
+<span class="cstat-no" title="statement not covered" >            ListActions.moveList({sourceId, targetId})</span>
+        }
+    },
+&nbsp;
+    canDrop<span class="fstat-no" title="function not covered" >(targetProps, monitor) {</span>
+<span class="cstat-no" title="statement not covered" >        const targetId = targetProps.id</span>
+<span class="cstat-no" title="statement not covered" >        const lists = ListStore.getState().lists</span>
+<span class="cstat-no" title="statement not covered" >        const types = TaskStore.getState().types<span class="cstat-no" title="statement not covered" > </span>// make static method</span>
+ 
+        const listStates = lists.filter(<span class="fstat-no" title="function not covered" >(list) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            return list.tasks.includes(targetId)</span>
+        })[0].states
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const typeStates = types.filter(<span class="fstat-no" title="function not covered" >(type) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            return type.name === monitor.getItem().storyType</span>
+        })[0].states
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const intersection = listStates.filter(<span class="fstat-no" title="function not covered" >(state) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            return typeStates.indexOf(state) &gt; -1</span>
+        })
+        
+<span class="cstat-no" title="statement not covered" >        if (intersection.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >            return true</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return false</span>
+    }
+}
+&nbsp;
+@DragSource(ItemTypes.TASK, taskSource, (connect, monitor) =&gt; ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+}))
+@DropTarget(ItemTypes.TASK, taskTarget, (connect, monitor) =&gt; ({
+    connectDropTarget: connect.dropTarget(),
+}))
+class Task extends Component {
+    constructor(props) {
+        super(props)
+&nbsp;
+        this.states = {
+            unstarted: '#4388FF',
+            started: '#FCAC79',
+            finished: '#D3E173',
+            delivered: '#CC96EF',
+            rejected: '#FA6E6E',
+            accepted: '#7EC871'
+        }
+&nbsp;
+        this.types = TaskStore.getState().types
+&nbsp;
+        this.changeState = this.changeState.bind(this)
+        // this.editTask = this.editTask.bind(this, props.id)
+        // this.deleteTask = this.deleteTask.bind(this, props.id)
+    }
+&nbsp;
+    static propTypes = {
+        task: PropTypes.object.isRequired,
+        id: PropTypes.any.isRequired
+    }<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >;</span></span>
+&nbsp;
+    render() {
+        const { task, connectDragSource, connectDropTarget, isDragging, onDelete, onEdit, ...props } = this.props
+&nbsp;
+        this.styles = {
+            label: {
+                marginRight: 5
+            },
+            name: {
+                margin: '10px 0',
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: 20
+            },
+            state: {
+                fontVariant: 'small-caps',
+                color: '#999'
+            },
+            type: {
+                float: 'right',
+                fontVariant: 'small-caps',
+                color: '#999'
+            },
+            task: {
+                background: '#fff',
+                marginBottom: 10,
+                padding: 10,
+                borderStyle: 'solid',
+                borderWidth: '0 0 0 10px',
+                borderColor: this.states[task.get('current_state')]
+            },
+            delete: {
+                float: 'right',
+                marginTop: 3,
+                color: '#777',
+                cursor: 'pointer'
+            },
+            footer: {
+                minHeight: 20
+            }
+        }
+&nbsp;
+        const states = this.types.filter((type) =&gt; {
+            return type.name === task.get('story_type')
+        })[0].states
+&nbsp;
+        return connectDropTarget(connectDragSource(
+            &lt;div style={this.styles.task} {...props}&gt;
+                &lt;DropdownButton id={task.get('id')} title={task.get('current_state')}
+                    onSelect={this.changeState} bsSize="xsmall"
+                    style={this.styles.state}&gt;
+                    {states.map(this.renderMenuItem, this)}
+                &lt;/DropdownButton&gt;
+                &lt;span className="story-type" style={this.styles.type}&gt;{task.get('story_type')}&lt;/span&gt;
+&nbsp;
+                &lt;Editable style={this.styles.name} value={task.get('name')} type="textarea" onEdit={onEdit}/&gt;
+&nbsp;
+                &lt;div style={this.styles.footer}&gt;
+                    {task.get('labels').map(this.renderLabel, this)}
+                    &lt;Glyphicon glyph="trash" style={this.styles.delete} onClick={onDelete} title="Delete task"/&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        ))
+    }
+&nbsp;
+    renderLabel(label) {
+        return &lt;Label key={label.get('id')} style={this.styles.label}&gt;{label.get('name')}&lt;/Label&gt;
+    }
+&nbsp;
+    renderMenuItem(state, index) {
+        return &lt;MenuItem eventKey={state} key={index}&gt;{state}&lt;/MenuItem&gt;
+    }
+&nbsp;
+    changeState(e, newState) {
+<span class="cstat-no" title="statement not covered" >        const task = this.props.task</span>
+<span class="cstat-no" title="statement not covered" >        const updateParams = {}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (task.get('story_type') === 'feature' &amp;&amp; task.get('estimate') === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >            const project = AppStore.getState().project</span>
+<span class="cstat-no" title="statement not covered" >            updateParams.estimate = +project.get('point_scale').split(',')[0]</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        updateParams.current_state = newState</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        TaskActions.updateTask(task.get('id'), updateParams)</span>
+    }
+&nbsp;
+&nbsp;
+}
+&nbsp;
+export default Task
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jan 18 2016 21:36:50 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
