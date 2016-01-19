@@ -3,7 +3,6 @@ const express = require('express')
 const compression = require('compression')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const webpack = require('webpack')
 const axios = require('axios')
 
 const API_BASE_URL = 'https://www.pivotaltracker.com/services/v5'
