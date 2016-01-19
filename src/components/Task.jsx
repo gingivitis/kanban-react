@@ -120,17 +120,17 @@ class Task extends Component {
         this.types = TaskStore.getState().types
 
         this.changeState = this.changeState.bind(this)
-        this.editTask = this.editTask.bind(this, props.id)
-        this.deleteTask = this.deleteTask.bind(this, props.id)
+        // this.editTask = this.editTask.bind(this, props.id)
+        // this.deleteTask = this.deleteTask.bind(this, props.id)
     }
 
     static propTypes = {
         task: PropTypes.object.isRequired,
-        id: PropTypes.number.isRequired
+        id: PropTypes.any.isRequired
     };
 
     render() {
-        const { task, connectDragSource, connectDropTarget, isDragging, ...props } = this.props
+        const { task, connectDragSource, connectDropTarget, isDragging, onDelete, onEdit, ...props } = this.props
 
         this.styles = {
             label: {
@@ -180,13 +180,13 @@ class Task extends Component {
                     style={this.styles.state}>
                     {states.map(this.renderMenuItem, this)}
                 </DropdownButton>
-                <span style={this.styles.type}>{task.get('story_type')}</span>
+                <span className="story-type" style={this.styles.type}>{task.get('story_type')}</span>
 
-                <Editable style={this.styles.name} value={task.get('name')} type="textarea" onEdit={this.editTask}/>
+                <Editable style={this.styles.name} value={task.get('name')} type="textarea" onEdit={onEdit}/>
 
                 <div style={this.styles.footer}>
                     {task.get('labels').map(this.renderLabel, this)}
-                    <Glyphicon glyph="trash" style={this.styles.delete} onClick={this.deleteTask} title="Delete task"/>
+                    <Glyphicon glyph="trash" style={this.styles.delete} onClick={onDelete} title="Delete task"/>
                 </div>
             </div>
         ))
@@ -214,16 +214,7 @@ class Task extends Component {
         TaskActions.updateTask(task.get('id'), updateParams)
     }
 
-    editTask(id, name) {
-        TaskActions.updateTask(id, { name })
-    }
 
-    deleteTask(id) {
-        if (confirm(`Are you sure you want to delete task #${id}?`)) {
-            TaskActions.deleteTask(id)
-        }
-    }
-    
 }
 
 export default Task

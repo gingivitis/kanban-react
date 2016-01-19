@@ -73,7 +73,8 @@ class List extends Component {
         this.styles = {
             list: {
                 background: '#505360',
-                minHeight: '80vh'
+                minHeight: '80vh',
+                minWidth: 250
             },
             header: {
                 background: '#2E323E',
@@ -115,12 +116,14 @@ class List extends Component {
             <div style={this.styles.list}>
                 <div style={this.styles.header}>
                     <Glyphicon glyph="list" style={this.styles.icon}/>
-                    <span style={this.styles.headerText}>{list.name}</span>
+                    <span className="list-header" style={this.styles.headerText}>{list.name}</span>
 
                     <Badge style={this.styles.badge}
+                        className="task-count"
                         pullRight={true}>{list.tasks.size}</Badge>
                     <Badge style={this.styles.addTask}
-                        onClick={this.props.onAddTask.bind(this, list)}
+                        className="add-task"
+                        onClick={onAddTask.bind(this, list)}
                         title="Add task to list"
                         pullRight={true}>+</Badge> </div>
 

@@ -49,14 +49,12 @@ class AddTaskForm extends Component {
 
                 <ValidatedInput
                     type="textarea"
+                    id="taskName"
                     label="Task"
                     name="name"
                     placeholder="Task description"
-                    validate="required"
-                    errorHelp={{
-                        required: "Please enter task name",
-                    }}
-                    onChange={this.handleChange} />
+                    validate={val => !!val.trim()}
+                    errorHelp="Please enter task name" />
                 {storyType}
                 {stateOptions}
                 <div className="actions" style={this.styles.actions}>
@@ -107,7 +105,7 @@ class AddTaskForm extends Component {
                         required: "Please select task status"
                     }}>
 
-                    <option value="">Select...</option>
+                    <option className="default" value="">Select...</option>
                     {options}
                 </ValidatedInput>
             )

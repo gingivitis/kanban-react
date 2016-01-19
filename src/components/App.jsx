@@ -35,14 +35,6 @@ class App extends Component {
         this.editProjectName = this.editProjectName.bind(this)
     }
 
-    closeModal() {
-        this.setState({ showAddTask: false })
-    }
-
-    openModal() {
-        this.setState({ showAddTask: true })
-    }
-
     componentDidMount() {
         AppActions.getProject()
         TaskActions.fetchTasks()
@@ -71,7 +63,7 @@ class App extends Component {
                                 <Editable value={this.state.project.get('name')}
                                     onEdit={this.editProjectName}
                                     style={this.styles.name}
-                                    type="text" />
+                                    type="textfield" />
                             </Navbar.Brand>
                         </Navbar.Header>
                     </Navbar>

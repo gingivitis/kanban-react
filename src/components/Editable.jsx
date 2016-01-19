@@ -32,17 +32,11 @@ class Editable extends Component {
     }
 
     renderEdit() {
-        let editField
-
-        if (this.state.editing) {
-            if (this.props.type === 'textarea') {
-                editField = this.renderTextArea()
-            } else if (this.props.type === 'text') {
-                editField = this.renderInput()
-            }
+        if (this.props.type === 'textarea') {
+            return this.renderTextArea()
+        } else if (this.props.type === 'textfield') {
+            return this.renderInput()
         }
-
-        return editField
     }
 
     renderTextArea() {

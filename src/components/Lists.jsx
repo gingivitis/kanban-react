@@ -20,8 +20,8 @@ class Lists extends Component {
             addList: null
         }
 
-        this.openAddTask = this.openAddTask.bind(this)
-        this.closeAddTask = this.closeAddTask.bind(this)
+        // this.openAddTask = this.openAddTask.bind(this)
+        // this.closeAddTask = this.closeAddTask.bind(this)
     }
 
     static propTypes = {
@@ -68,13 +68,13 @@ class Lists extends Component {
         )
     }
 
-	openAddTask(addList) {
+    openAddTask = (addList) => {
         this.setState({ showAddTask: true, addList })
-	}
+	};
 
-    closeAddTask() {
+    closeAddTask = () => {
         this.setState({ showAddTask: false })
-    }
+    };
 }
 
 export default Lists

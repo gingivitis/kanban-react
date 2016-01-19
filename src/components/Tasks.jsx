@@ -24,17 +24,33 @@ class Tasks extends Component {
 
         return (
             <ul style={this.styles.tasks}>
-                { tasks.map(this.renderTask) }
+                { tasks.map(this.renderTask, this) }
             </ul>
         )
     }
 
     renderTask(task) {
         return (
-            <Task key={task.get('id')} id={task.get('id')} task={task} />
+            <Task 
+                className="task" 
+                key={task.get('id')}
+                id={task.get('id')} 
+                task={task}
+                onDelete={this.deleteTask.bind(this, task.get('id'))}
+                onEdit={this.editTask.bind(this, task.get('id'))}
+                />
         )
     }
 
+    deleteTask(id) {
+        if (confirm(`Are you sure you want to delete task #${id}?`)) {
+            TaskActions.deleteTask(id)
+        }
+    }
+    
+    editTask(id, name) {
+        TaskActions.updateTask(id, { name })
+    }
     
 }
 
