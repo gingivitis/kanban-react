@@ -1,41 +1,40 @@
-const path = require('path')
-const webpack = require('webpack')
+const commonConfig = require('./webpack.config.common')
+
+const devLoaders = [{
+    test: /\.jsx?$/,
+    loaders: [
+        'react-hot',
+        'babel?presets[]=react,presets[]=es2015,presets[]=stage-0&plugins[]=transform-runtime,plugins[]=transform-decorators-legacy'
+    ],
+    // query: {
+    //     plugins: ['transform-runtime', 'transform-decorators-legacy'],
+    //     presets: ['es2015', 'stage-0', 'react'],
+    // },
+    exclude: [/node_modules/]
+}]
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval',
     entry: [
-        'webpack-hot-middleware/client',
+        'webpack-dev-server/client?http://localhost:8080',
+        'webpack/hot/only-dev-server',
         './src/index'
     ],
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/static/'
+        path: './build',
+        filename: 'bundle.[hash].js'
+    },
+    devServer: {
+        proxy: {
+            '/api/*': 'http://localhost:5000/'
+        }
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        // new webpack.NoErrorsPlugin()
+        commonConfig.indexPagePlugin
     ],
     module: {
-        loaders: [{
-            test: /\.jsx?$/,
-            loader: 'babel',
-            query: {
-                plugins: ['transform-runtime', 'transform-decorators-legacy'],
-                presets: ['es2015', 'stage-0', 'react'],
-            },
-            exclude: [/node_modules/]
-        }, {
-            test: /\.css$/,
-            loader: 'style!css',
-            include: path.join(__dirname, 'src')
-        }, {
-            test: /\.less$/,
-            loader: 'style!css!less'
-        }, {
-            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-            loader: 'url?limit=10000'
-        }]
+        loaders: commonConfig.loaders.concat(devLoaders)
     },
     resolve: {
         extensions: ['', '.js', '.jsx']

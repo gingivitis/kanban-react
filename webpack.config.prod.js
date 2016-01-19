@@ -1,5 +1,17 @@
-const path = require('path')
+const commonConfig = require('./webpack.config.common')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const path = require('path')
 const webpack = require('webpack')
+
+const prodLoaders = [{
+    test: /\.jsx?$/,
+    loader: 'babel',
+    query: {
+        plugins: ['transform-runtime', 'transform-decorators-legacy'],
+        presets: ['es2015', 'stage-0', 'react'],
+    },
+    exclude: [/node_modules/]
+}]
 
 module.exports = {
     devtool: 'source-map',
@@ -7,9 +19,13 @@ module.exports = {
         './src/index'
     ],
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/static/'
+        path: './build',
+        filename: 'bundle.[hash].js'
+    },
+    devServer: {
+        proxy: {
+            '/api/*': 'http://localhost:5000/'
+        }
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
@@ -19,31 +35,15 @@ module.exports = {
             }
         }),
         new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
             compressor: {
                 warnings: false
             }
-        })
+        }),
+        commonConfig.indexPagePlugin
     ],
     module: {
-        loaders: [{
-            test: /\.jsx?$/,
-            loader: 'babel',
-            query: {
-                plugins: ['transform-runtime', 'transform-decorators-legacy'],
-                presets: ['es2015', 'stage-0', 'react'],
-            },
-            include: path.join(__dirname, 'src')
-        }, {
-            test: /\.css$/,
-            loader: 'style!css',
-            include: path.join(__dirname, 'src')
-        }, {
-            test: /\.less$/,
-            loader: 'style!css!less'
-        }, {
-            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-            loader: 'url?limit=10000'
-        }]
+        loaders: commonConfig.loaders.concat(prodLoaders)
     },
     resolve: {
         extensions: ['', '.js', '.jsx']
