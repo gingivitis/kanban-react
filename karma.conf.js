@@ -9,15 +9,6 @@ module.exports = function(config) {
         files: [
             'tests.loader.js'
         ],
-        // plugins: [
-        //     'karma-phantomjs-launcher',
-        //     'karma-chrome-launcher',
-        //     'karma-coverage',
-        //     'karma-mocha',
-        //     'karma-sourcemap-loader',
-        //     'karma-webpack',
-        //     'karma-mocha-reporter',
-        // ],
         preprocessors: {
             'tests.loader.js': ['webpack', 'sourcemap']
         },
