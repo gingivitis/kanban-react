@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "KanBan!",
   "scripts": {
+    "clean": "rimraf build",
     "dev-server": "nodemon server/index.js --watch server",
     "dev-web": "webpack-dev-server --config ./webpack.config.dev.js --hot --progress --colors --content-base build",
     "dev": "nodemon server/index.js --watch server & webpack-dev-server --config ./webpack.config.dev.js --hot --progress --colors --content-base build",
-    "build": "rm build/*; webpack --config ./webpack.config.prod.js --progress --colors",
+    "build:webpack": "webpack --config ./webpack.config.prod.js --progress --colors",
+    "build": "npm run clean && npm run build:webpack",
     "start": "node server/index.js",
     "test": "./node_modules/.bin/karma start karma.conf.js",
     "tdd": "karma start --auto-watch --no-single-run"

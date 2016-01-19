@@ -50,6 +50,16 @@ const taskSource = {
                 updateParams.estimate = +project.get('point_scale').split(',')[0]
             }
         } else {
+            // same list
+            // make sure it is not done column
+            const lists = ListStore.getState().lists
+            const list = lists.filter((list) => {
+                return list.id === listId
+            })[0]
+            if (list.name === 'Done') {
+                return
+            }
+            
             updateParams.current_state = task.get('current_state')
         } 
 
@@ -75,24 +85,35 @@ const taskTarget = {
 
     canDrop(targetProps, monitor) {
         const targetId = targetProps.id
+        const source = monitor.getItem()
+        const sourceId = source.id
+
         const lists = ListStore.getState().lists
         const types = TaskStore.getState().types // make static method
+        const sourceList = lists.filter((list) => {
+            return list.tasks.includes(sourceId)
+        })[0]
  
-        const listStates = lists.filter((list) => {
+        const targetList = lists.filter((list) => {
             return list.tasks.includes(targetId)
-        })[0].states
+        })[0]
+
+        if (sourceList.name === 'Done' && targetList.name === 'Done') {
+            return false
+        }
 
         const typeStates = types.filter((type) => {
-            return type.name === monitor.getItem().storyType
+            return type.name === source.storyType
         })[0].states
 
-        const intersection = listStates.filter((state) => {
+        const intersection = targetList.states.filter((state) => {
             return typeStates.indexOf(state) > -1
         })
-        
+
         if (intersection.length > 0) {
             return true
         }
+
         return false
     }
 }
